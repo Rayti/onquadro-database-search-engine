@@ -25,4 +25,4 @@ By default, PostgreSQL will be available with this config:
 
 To update schema, please run `schemaSpy`. The result will be in `/tmp/qbase-schema`
 
-![](schema.png) 
+![](./schema.png) 

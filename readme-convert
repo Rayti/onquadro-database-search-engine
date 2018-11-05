@@ -1,0 +1,2 @@
+#! /bin/bash
+exec pandoc -f markdown -t html5 -o README.pdf README.md
