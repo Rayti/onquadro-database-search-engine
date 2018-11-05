@@ -1,0 +1,10 @@
+#!/bin/bash
+exec java -jar schemaSpy.jar \
+    -t pgsql \
+    -host localhost:15432 \
+    -db qbase \
+    -s public \
+    -u qbase \
+    -p Jellux37 \
+    -o /tmp/qbase-schema \
+    -dp postgresql-42.2.5.jar

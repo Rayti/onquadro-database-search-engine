@@ -1,0 +1,6 @@
+postgres:
+  image: postgres
+  ports:
+    - 15432:5432
+  volumes:
+    - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
