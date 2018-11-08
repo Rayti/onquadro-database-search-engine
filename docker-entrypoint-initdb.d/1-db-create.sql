@@ -28,7 +28,6 @@ CREATE TYPE strand_direction AS ENUM (
 
 CREATE TABLE pdb (
   id            CHAR(4) PRIMARY KEY,
-  molecule      MOLECULE   NOT NULL,
   experiment    EXPERIMENT NOT NULL,
   resolution    REAL,
   visualization TEXT       NOT NULL
@@ -36,13 +35,15 @@ CREATE TABLE pdb (
 
 CREATE TABLE nucleotide (
   id          SERIAL PRIMARY KEY,
-  pdb_id      CHAR(4) NOT NULL REFERENCES pdb (id),
-  chain       TEXT    NOT NULL,
-  number      INTEGER NOT NULL,
+  pdb_id      CHAR(4)  NOT NULL REFERENCES pdb (id),
+  model       INTEGER,
+  chain       TEXT     NOT NULL,
+  number      INTEGER  NOT NULL,
   icode       CHAR,
-  full_name   TEXT    NOT NULL,
-  short_name  CHAR(1) NOT NULL,
-  coordinates TEXT    NOT NULL
+  molecule    MOLECULE NOT NULL,
+  full_name   TEXT     NOT NULL,
+  short_name  CHAR     NOT NULL,
+  coordinates TEXT     NOT NULL
 );
 
 CREATE TABLE tetrade (
