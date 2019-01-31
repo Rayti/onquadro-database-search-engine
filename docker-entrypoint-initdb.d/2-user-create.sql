@@ -11,6 +11,6 @@ GRANT ALL ON tetrade TO qbase;
 GRANT ALL ON quadruplex TO qbase;
 GRANT ALL ON quadruplex_tetrade TO qbase;
 GRANT ALL ON base_pair TO qbase;
-GRANT ALL ON intertetrade_parameters TO qbase;
+GRANT ALL ON tetrade_stack TO qbase;
 
 GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO qbase;

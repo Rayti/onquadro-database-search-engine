@@ -26,38 +26,46 @@ CREATE TYPE strand_direction AS ENUM (
   'parallel', 'antiparallel', 'mixed'
 );
 
+CREATE TYPE glycosidic_bond AS ENUM (
+  'anti', 'syn'
+);
+
 CREATE TABLE pdb (
   id            CHAR(4) PRIMARY KEY,
+  assembly      INTEGER,
   experiment    EXPERIMENT NOT NULL,
   resolution    REAL,
   visualization TEXT       NOT NULL
 );
 
 CREATE TABLE nucleotide (
-  id          SERIAL PRIMARY KEY,
-  pdb_id      CHAR(4)  NOT NULL REFERENCES pdb (id),
-  model       INTEGER,
-  chain       TEXT     NOT NULL,
-  number      INTEGER  NOT NULL,
-  icode       CHAR,
-  molecule    MOLECULE NOT NULL,
-  full_name   TEXT     NOT NULL,
-  short_name  CHAR     NOT NULL,
-  coordinates TEXT     NOT NULL
+  id              SERIAL PRIMARY KEY,
+  pdb_id          CHAR(4)         NOT NULL REFERENCES pdb (id),
+  model           INTEGER,
+  chain           TEXT            NOT NULL,
+  number          INTEGER         NOT NULL,
+  icode           CHAR,
+  molecule        MOLECULE        NOT NULL,
+  full_name       TEXT            NOT NULL,
+  short_name      CHAR            NOT NULL,
+  glycosidic_bond GLYCOSIDIC_BOND NOT NULL,
+  coordinates     TEXT
 );
 
 CREATE TABLE tetrade (
-  id     SERIAL PRIMARY KEY,
-  nt1_id INTEGER NOT NULL REFERENCES nucleotide (id),
-  nt2_id INTEGER NOT NULL REFERENCES nucleotide (id),
-  nt3_id INTEGER NOT NULL REFERENCES nucleotide (id),
-  nt4_id INTEGER NOT NULL REFERENCES nucleotide (id),
-  onz    ONZ
+  id        SERIAL PRIMARY KEY,
+  nt1_id    INTEGER NOT NULL REFERENCES nucleotide (id),
+  nt2_id    INTEGER NOT NULL REFERENCES nucleotide (id),
+  nt3_id    INTEGER NOT NULL REFERENCES nucleotide (id),
+  nt4_id    INTEGER NOT NULL REFERENCES nucleotide (id),
+  planarity REAL    NOT NULL,
+  onz       ONZ
 );
 
 CREATE TABLE quadruplex (
   id               SERIAL PRIMARY KEY,
-  strand_direction STRAND_DIRECTION NOT NULL
+  strand_direction STRAND_DIRECTION NOT NULL,
+  visualization    TEXT             NOT NULL
 );
 
 CREATE TABLE quadruplex_tetrade (
@@ -75,11 +83,10 @@ CREATE TABLE base_pair (
   edge3     EDGE      NOT NULL
 );
 
-CREATE TABLE intertetrade_parameters (
+CREATE TABLE tetrade_stack (
   id          SERIAL PRIMARY KEY,
   tetrade1_id INTEGER NOT NULL REFERENCES tetrade (id),
   tetrade2_id INTEGER NOT NULL REFERENCES tetrade (id),
   rise        REAL    NOT NULL,
-  twist       REAL    NOT NULL,
-  planarity   REAL    NOT NULL
+  twist       REAL    NOT NULL
 )
