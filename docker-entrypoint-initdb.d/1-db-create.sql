@@ -10,7 +10,7 @@ CREATE TYPE onz AS ENUM ('O+', 'O-', 'N+', 'N-', 'Z+', 'Z-');
 
 CREATE TYPE onzm AS ENUM ('Op', 'Oa', 'Oh', 'Np', 'Na', 'Nh', 'Zp', 'Za', 'Zh', 'Mp', 'Ma', 'Mh', 'n/a');
 
-CREATE TYPE subtype AS ENUM ('+', '-', '*');
+CREATE TYPE subtype AS ENUM ('+', '-', '*', 'n/a');
 
 CREATE TYPE molecule AS ENUM ('RNA', 'DNA', 'Other');
 
@@ -31,6 +31,9 @@ CREATE TABLE pdb
     assembly         INTEGER    NOT NULL,
     experiment       EXPERIMENT NOT NULL,
     resolution       REAL,
+    deposition_date  DATE       NOT NULL,
+    release_date     DATE       NOT NULL,
+    revision_date    DATE       NOT NULL,
     visualization_3d BYTEA      NOT NULL,
     visualization_2d TEXT       NOT NULL,
     arc_diagram      TEXT       NOT NULL
