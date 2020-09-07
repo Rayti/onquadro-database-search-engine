@@ -34,6 +34,7 @@ CREATE TABLE pdb
     deposition_date  DATE       NOT NULL,
     release_date     DATE       NOT NULL,
     revision_date    DATE       NOT NULL,
+    dot_bracket      TEXT       NOT NULL,
     visualization_3d BYTEA      NOT NULL,
     visualization_2d TEXT       NOT NULL,
     arc_diagram      TEXT       NOT NULL
@@ -57,6 +58,7 @@ CREATE TABLE nucleotide
 CREATE TABLE helix
 (
     id               SERIAL PRIMARY KEY,
+    dot_bracket      TEXT  NOT NULL,
     visualization_3d BYTEA NOT NULL,
     visualization_2d TEXT  NOT NULL,
     arc_diagram      TEXT  NOT NULL
@@ -68,6 +70,7 @@ CREATE TABLE quadruplex
     helix_id         INTEGER NOT NULL REFERENCES helix (id),
     onzm             ONZM    NOT NULL,
     subtype          SUBTYPE NOT NULL,
+    dot_bracket      TEXT    NOT NULL,
     visualization_3d BYTEA   NOT NULL,
     visualization_2d TEXT    NOT NULL,
     arc_diagram      TEXT    NOT NULL
@@ -83,6 +86,7 @@ CREATE TABLE tetrad
     nt4_id              INTEGER NOT NULL REFERENCES nucleotide (id),
     onz                 ONZ     NOT NULL,
     planarity_deviation REAL    NOT NULL,
+    dot_bracket         TEXT    NOT NULL,
     visualization_3d    BYTEA   NOT NULL,
     visualization_2d    TEXT    NOT NULL,
     arc_diagram         TEXT    NOT NULL
