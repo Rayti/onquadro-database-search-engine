@@ -23,9 +23,18 @@ By default, PostgreSQL will be available with this config:
 
 ## Schema
 
-To update schema, please run `schemaSpy`. The result will be in `/tmp/qbase-schema`
+To update schema, please run `schemaspy-run`. The result will be in `/tmp/qbase-schema`
 
-![](schema.png) 
+![](schema.svg) 
+
+## Clean up
+
+To start fresh:
+
+``` sh
+docker-compose rm
+docker volume rm qbase_db-data
+```
 
 ## DB Dump
 

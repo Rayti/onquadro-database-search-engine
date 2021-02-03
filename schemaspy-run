@@ -1,5 +1,5 @@
 #!/bin/bash
-exec java -jar schemaSpy.jar \
+schemaspy \
     -t pgsql \
     -host localhost:15432 \
     -db qbase \
@@ -8,3 +8,8 @@ exec java -jar schemaSpy.jar \
     -p Jellux37 \
     -o /tmp/qbase-schema \
     -dp postgresql-42.2.5.jar
+
+current="$(dirname $(readlink -f $0))"
+pushd /tmp/qbase-schema/diagrams/summary/
+dot -Tsvg:cairo -o "${current}/schema.svg" relationships.real.large.dot
+popd
