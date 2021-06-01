@@ -55,7 +55,22 @@ CREATE TABLE pdb
     deposition_date DATE       NOT NULL,
     release_date    DATE       NOT NULL,
     revision_date   DATE       NOT NULL,
-    dot_bracket     TEXT       NOT NULL
+    dot_bracket     TEXT       NOT NULL,
+    title           TEXT       NOT NULL
+);
+
+CREATE TABLE ion
+(
+    id   SERIAL PRIMARY KEY,
+    name CHAR(4) NOT NULL
+);
+
+CREATE TABLE pdb_ion
+(
+    id     SERIAL PRIMARY KEY,
+    pdb_id INTEGER NOT NULL REFERENCES pdb (id),
+    ion_id INTEGER NOT NULL REFERENCES ion (id),
+    count  INTEGER NOT NULL
 );
 
 CREATE TABLE nucleotide
@@ -90,7 +105,8 @@ CREATE TABLE quadruplex
     onzm        ONZM       NOT NULL,
     subtype     SUBTYPE    NOT NULL,
     loop_class  LOOP_CLASS NOT NULL,
-    dot_bracket TEXT       NOT NULL
+    dot_bracket TEXT       NOT NULL,
+    basename    TEXT       NOT NULL
 );
 
 CREATE TABLE quadruplex_gba
@@ -138,7 +154,8 @@ CREATE TABLE tetrad
     onz                 ONZ              NOT NULL,
     gba_tetrad_class    GBA_TETRAD_CLASS NOT NULL,
     planarity_deviation REAL             NOT NULL,
-    dot_bracket         TEXT             NOT NULL
+    dot_bracket         TEXT             NOT NULL,
+    basename            TEXT             NOT NULL
 );
 
 CREATE TABLE tetrad_pair
@@ -154,7 +171,8 @@ CREATE TABLE tetrad_pair
 CREATE TABLE helix
 (
     id          SERIAL PRIMARY KEY,
-    dot_bracket TEXT NOT NULL
+    dot_bracket TEXT NOT NULL,
+    basename    TEXT NOT NULL
 );
 
 CREATE TABLE helix_quadruplex
