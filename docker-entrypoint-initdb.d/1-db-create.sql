@@ -36,8 +36,9 @@ CREATE TYPE loop_class AS ENUM ('1a', '1b', '2a', '2b', '3a', '3b', '4a', '4b', 
 
 CREATE TYPE loop_type AS ENUM ('diagonal', 'lateral-', 'lateral+', 'propeller-', 'propeller+');
 
+-- Source: https://dba.stackexchange.com/questions/68266/what-is-the-best-way-to-store-an-email-address-in-postgresql
 CREATE DOMAIN emailtype AS CITEXT
-    CHECK (VALUE ~ '^[a-zA-Z0-9.!#$%&''*+/=?^`{|}~-]+@a-zA-Z0-9?(?:.a-zA-Z0-9?)*$');
+    CHECK (VALUE ~ '^[a-zA-Z0-9.!#$%&''*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$');
 
 CREATE TABLE newsletter
 (
