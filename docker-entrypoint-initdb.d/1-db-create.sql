@@ -38,7 +38,8 @@ CREATE TYPE loop_type AS ENUM ('diagonal', 'lateral-', 'lateral+', 'propeller-',
 
 -- Source: https://dba.stackexchange.com/questions/68266/what-is-the-best-way-to-store-an-email-address-in-postgresql
 CREATE DOMAIN emailtype AS CITEXT
-    CHECK (VALUE ~ '^[a-zA-Z0-9.!#$%&''*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$');
+    CHECK (VALUE ~
+           '^[a-zA-Z0-9.!#$%&''*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$');
 
 CREATE TABLE newsletter
 (
@@ -62,8 +63,9 @@ CREATE TABLE pdb
 
 CREATE TABLE ion
 (
-    id   SERIAL PRIMARY KEY,
-    name CHAR(4) NOT NULL
+    id     SERIAL PRIMARY KEY,
+    name   CHAR(4) NOT NULL,
+    charge CHAR(2) NOT NULL
 );
 
 CREATE TABLE pdb_ion
@@ -157,6 +159,21 @@ CREATE TABLE tetrad
     planarity_deviation REAL             NOT NULL,
     dot_bracket         TEXT             NOT NULL,
     basename            TEXT             NOT NULL
+);
+
+CREATE TABLE ion_channel
+(
+    id        SERIAL PRIMARY KEY,
+    ion_id    INTEGER NOT NULL REFERENCES ion (id),
+    tetrad_id INTEGER NOT NULL REFERENCES tetrad (id)
+);
+
+CREATE TABLE ion_outside
+(
+    id            SERIAL PRIMARY KEY,
+    ion_id        INTEGER NOT NULL REFERENCES ion (id),
+    tetrad_id     INTEGER NOT NULL REFERENCES tetrad (id),
+    nucleotide_id INTEGER NOT NULL REFERENCES nucleotide (id)
 );
 
 CREATE TABLE tetrad_pair
