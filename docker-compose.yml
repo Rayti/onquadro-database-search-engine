@@ -3,14 +3,12 @@ version: "3.8"
 services:
   qbase:
     container_name: qbase
-    image: postgres
+    image: postgres:13
     ports:
       - 15432:5432
     volumes:
       - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
-      - db-data:/var/lib/postgresql/data
+    tmpfs:
+      - /var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=Cyzgiv12
-
-volumes:
-  db-data:
