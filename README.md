@@ -1,10 +1,9 @@
-# QBASE
+# ONQUADRO Database
 
 ## Requirements
 
 - Docker
-- docker-compose
-- Java 8+
+- Docker Compose
 
 ## Running PostgreSQL
 
@@ -23,9 +22,11 @@ By default, PostgreSQL will be available with this config:
 
 ## Schema
 
-To update schema, please run `schemaspy-run`. The result will be in `/tmp/qbase-schema`
+The SQL schema is available in [docker-entrypoint-initdb.d/1-db-create.sql](docker-entrypoint-initdb.d/1-db-create.sql) file.
 
-![](schema.svg) 
+Visual representation:
+
+![To update this image, please run `schemaspy-run`](schema.svg)
 
 ## Clean up
 
@@ -33,7 +34,6 @@ To start fresh:
 
 ``` sh
 docker-compose rm
-docker volume rm qbase_db-data
 ```
 
 ## DB Dump
@@ -41,11 +41,11 @@ docker volume rm qbase_db-data
 When the database is filled with data, run:
 
 ``` sh
-docker exec --user postgres qbase pg_dump --data-only --role qbase qbase | xz --threads=0 > $(date -I)-qbase.sql.xz
+docker exec --user postgres qbase pg_dump --data-only --role qbase qbase | zstdmt > $(date -I)-qbase.sql.zst
 ```
 
-To restore the dump, start with Postgres DB __without__ `qbase` user and __without__ `qbase` database. Then, run:
+To restore the dump, start with PostgreSQL  __without__ `qbase` user and __without__ `qbase` database. Then, run:
 ``` sh
 cat docker-entrypoint-initdb.d/1-db-create.sql | psql
-xzcat $(date -I)-qbase.sql.xz | psql
+zstdcat $(date -I)-qbase.sql.zst | psql
 ```

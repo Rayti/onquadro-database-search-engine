@@ -68,6 +68,30 @@ CREATE TABLE ion
     charge CHAR(2) NOT NULL
 );
 
+INSERT INTO ion (name, charge)
+VALUES ('Ag', '1+'),
+       ('Au', '1+'),
+       ('Ba', '2+'),
+       ('Ca', '2+'),
+       ('Co', '2+'),
+       ('Cs', '1+'),
+       ('Eu', '2+'),
+       ('Ir', '4+'),
+       ('K', '1+'),
+       ('Li', '1+'),
+       ('Mg', '2+'),
+       ('Mn', '2+'),
+       ('Na', '1+'),
+       ('Ni', '2+'),
+       ('Os', '3+'),
+       ('Pb', '2+'),
+       ('Pt', '2+'),
+       ('Ru', '3+'),
+       ('Sr', '2+'),
+       ('Tl', '1+'),
+       ('V', '3+'),
+       ('Zn', '2+');
+
 CREATE TABLE pdb_ion
 (
     id     SERIAL PRIMARY KEY,
