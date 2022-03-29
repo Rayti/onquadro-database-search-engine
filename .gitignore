@@ -1,1 +1,6 @@
 .idea
+README.pdf
+docker-entrypoint-initdb.d/3-fill-data-newsletter.sql
+readme-convert
+schema.pdf
+schema.png
