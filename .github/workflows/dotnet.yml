@@ -13,7 +13,7 @@ jobs:
     
     defaults:
       run: 
-        working-directory: ./RNAqbase
+        working-directory: RNAqbase
 
     steps:
     - uses: actions/checkout@v3
