@@ -48,4 +48,4 @@ To restore the dump, start with PostgreSQL  __without__ `qbase` user and __witho
 ``` sh
 cat docker-entrypoint-initdb.d/1-db-create.sql | psql
 zstdcat $(date -I)-qbase.sql.zst | psql
-```
+``` 
